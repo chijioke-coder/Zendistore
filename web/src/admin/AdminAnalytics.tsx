@@ -79,7 +79,7 @@ function Bars({ points, bucket, two }: { points: { d: string; a: number; b?: num
         return (
           <g key={p.d}>
             <title>{`${labelFor(p.d, bucket)}: ${naira(p.a)}${two ? ` sales, ${naira(p.b ?? 0)} cost` : ''}`}</title>
-            {two ? <>{bar(p.a, cx - bw - 0.5, 'var(--teal)', 'a')}{bar(p.b ?? 0, cx + 0.5, 'var(--gold)', 'b')}</>
+            {two ? <>{bar(p.a, cx - bw - 0.5, 'var(--teal)', 'a')}{bar(p.b ?? 0, cx + 0.5, 'var(--accent)', 'b')}</>
               : bar(p.a, cx - bw / 2, p.a >= 0 ? 'var(--teal)' : 'var(--brick)', 'a')}
             {i % step === 0 && <text x={cx} y={H - 6} textAnchor="middle" fontSize="10" fill="var(--mute)">{labelFor(p.d, bucket)}</text>}
           </g>
@@ -289,7 +289,7 @@ export default function AdminAnalytics() {
           <div className="panel stack-s">
             <h2>Sales and cost</h2>
             <Bars two bucket={data.bucket} points={series.map((s) => ({ d: s.d, a: s.revenue, b: s.cost }))} />
-            <p className="muted small"><b style={{ color: 'var(--teal-d)' }}>■</b> Sales &nbsp; <b style={{ color: 'var(--gold)' }}>■</b> Cost</p>
+            <p className="muted small"><b style={{ color: 'var(--teal-d)' }}>■</b> Sales &nbsp; <b style={{ color: 'var(--accent)' }}>■</b> Cost</p>
           </div>
 
           <div className="cols">
