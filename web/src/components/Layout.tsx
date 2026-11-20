@@ -26,7 +26,7 @@ export default function Layout() {
   const [drawer, setDrawer] = useState(false);
   const loc = useLocation();
   const nav = useNavigate();
-  const site = settings?.site_name ?? 'PaBs Media';
+  const site = settings?.site_name ?? 'Zendistore';
   const wa = settings?.support_whatsapp?.replace(/\D/g, '');
 
   useEffect(() => { setDrawer(false); }, [loc.pathname]);
@@ -49,7 +49,7 @@ export default function Layout() {
     <div className={`app${collapsed ? ' collapsed' : ''}${drawer ? ' drawer-open' : ''}`}>
       <aside className="sidebar" aria-label="Main menu">
         <div className="sb-head">
-          <Link to="/" className="brand"><span className="brand-text">PaBs<b>.</b>Media</span></Link>
+          <Link to="/" className="brand"><span className="brand-text">{site}</span></Link>
           <button className="sb-close only-mobile" aria-label="Close menu" onClick={() => setDrawer(false)}><Icon name="x" /></button>
         </div>
 
@@ -83,7 +83,7 @@ export default function Layout() {
         <header className="topbar">
           <button className="icon-btn only-mobile" aria-label="Open menu" onClick={() => setDrawer(true)}><Icon name="menu" /></button>
           <button className="icon-btn only-desktop" aria-label="Collapse or expand the sidebar" onClick={toggleCollapse}><Icon name="menu" /></button>
-          <Link to="/" className="brand">PaBs<b style={{ color: 'var(--gold)' }}>.</b>Media</Link>
+          <Link to="/" className="brand">{site}</Link>
           {session ? (
             <Link to="/wallet" className="wallet-chip"><Icon name="wallet" size={17} />{naira(balanceKobo)}</Link>
           ) : (
