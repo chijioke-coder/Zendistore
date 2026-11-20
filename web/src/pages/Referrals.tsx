@@ -10,7 +10,8 @@ type Friend = { id: number; friend: string; status: string; reward_kobo: number;
 const WHEN: Record<string, string> = { signup: 'signs up', first_topup: 'adds funds to their wallet', first_purchase: 'makes their first purchase' };
 
 export default function Referrals() {
-  const { profile } = useAuth();
+  const { profile, settings } = useAuth();
+  const site = settings?.site_name ?? 'Zendistore';
   const [rules, setRules] = useState<Rules | null>(null);
   const [friends, setFriends] = useState<Friend[]>([]);
   const [copied, setCopied] = useState(false);
@@ -23,7 +24,7 @@ export default function Referrals() {
 
   const code = (profile as unknown as { referral_code?: string | null } | null)?.referral_code ?? '';
   const link = code ? `${window.location.origin}/signup?ref=${code}` : '';
-  const shareText = 'Join me on PaBs Media: verified accounts and digital products, delivered to your account. ';
+  const shareText = `Join me on ${site}: verified accounts and digital products, delivered to your account. `;
   const earned = friends.filter((f) => f.status === 'rewarded').reduce((a, f) => a + Number(f.reward_kobo), 0);
   const rewarded = friends.filter((f) => f.status === 'rewarded').length;
 
@@ -35,7 +36,7 @@ export default function Referrals() {
     <>
       <div className="invite">
         <span className="eyebrow">Invite friends</span>
-        <h1>Share PaBs Media with your friends</h1>
+        <h1>Share {site} with your friends</h1>
         <p>Send your personal link. When a friend creates an account with it, they are linked to you automatically.</p>
         {link ? (
           <>
