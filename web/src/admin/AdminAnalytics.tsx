@@ -251,7 +251,7 @@ export default function AdminAnalytics() {
             <button className="btn sm ghost" disabled={!data} onClick={exportCsv}>Download CSV</button>
           </div>
         </div>
-        {data && <p className="muted small">{new Date(data.from).toLocaleDateString('en-NG', { dateStyle: 'medium' })} to {new Date(new Date(data.to).getTime() - 1000).toLocaleDateString('en-NG', { dateStyle: 'medium' })}. Profit = what customers paid minus what the supplier charged you, on completed orders. Refunded orders are not counted as sales.</p>}
+        {data && <p className="muted small">{new Date(data.from).toLocaleDateString('en-NG', { dateStyle: 'medium' })} to {new Date(new Date(data.to).getTime() - 1000).toLocaleDateString('en-NG', { dateStyle: 'medium' })}. Profit = what customers paid minus what the supplier charged you, on completed orders. Your own products count as 100% profit. Refunded orders are not counted as sales.</p>}
       </div>
 
       {err && <div className="notice bad">{err}</div>}
@@ -296,7 +296,7 @@ export default function AdminAnalytics() {
             <div className="panel stack-s">
               <h2>By kind of product</h2>
               <Table head={['Kind', 'Orders', 'Sales', 'Profit']} empty="No data."
-                rows={(data.by_type ?? []).map((t: any) => [({ supplier: 'Supplier products', stock: 'Your own stock', manual: 'Made to order', sms: 'Virtual numbers' } as Record<string, string>)[t.type] ?? t.type, t.orders, naira(t.revenue), money(t.revenue - t.cost)])} />
+                rows={(data.by_type ?? []).map((t: any) => [({ own: 'Your own products (all profit)', supplier: 'Supplier products', sms: 'Virtual numbers' } as Record<string, string>)[t.type] ?? t.type, t.orders, naira(t.revenue), money(t.revenue - t.cost)])} />
             </div>
           </div>
 
